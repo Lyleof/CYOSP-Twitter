@@ -17,11 +17,8 @@ router.get('/getTimeline', function(req, res, next) {
     con.connect(function(err) {
         if (err) throw err;
         console.log('Connected!'); // Currently getting an error on sql queries
-        con.query('use twitter_model; ' +
-            'select username' +
-            ' from Profile' +
-            ' where username = \'' + req.get('username') + '\' and' +
-            ' pass = \'' + req.get('pass') + '\';', function (err, result) {
+        con.query('call twitter_model.get_timeline(\'' + req.get('username') + '\');'
+            , function (err, result) {
             if (err)
             {
                 console.log('Error grabbing timeline: ' + err);
