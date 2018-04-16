@@ -94,4 +94,20 @@ router.get('/getUsersFollowing', function(req, res, next) {
     });
 });
 
+router.get('/getUsersFollowers', function(req, res, next) {
+    pool.getConnection(function(err, con) {
+        if (err) throw err;
+        console.log('Connected!'); // Currently getting an error on sql queries
+        con.query('call twitter_model.get_users_followers(\'' + req.get('username') + '\');'
+            , function (err, result) {
+                if (err)
+                {
+                    console.log('Error grabbing timeline: ' + err);
+                    res.send('Error grabbing timeline, check your credentials and try again');
+                }
+                res.send(result);
+            })
+    });
+});
+
 module.exports = router;
