@@ -3,3 +3,4 @@ A twitter clone that works with an independent MySQL database. For those involve
 - open your terminal and navigate to the project directory
 - `npm install`
 - `npm start`
+The server will run on localhost:3000
