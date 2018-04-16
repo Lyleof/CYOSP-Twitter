@@ -126,5 +126,20 @@ router.get('/getUsersFavs', function(req, res, next) {
     });
 });
 
+router.post('/deleteTweet', function(req, res, next) {
+    pool.getConnection(function(err, con) {
+        if (err) throw err;
+        console.log('Connected!'); // Currently getting an error on sql queries
+        con.query('call twitter_model.get_users_favs(\'' + req.get('tweet_id') + '\');'
+            , function (err, result) {
+                if (err)
+                {
+                    console.log('Error grabbing timeline: ' + err);
+                    res.send('Error grabbing timeline, check your credentials and try again');
+                }
+                res.send(result);
+            })
+    });
+});
 
 module.exports = router;
