@@ -29,4 +29,20 @@ router.get('/getTimeline', function(req, res, next) {
     });
 });
 
+router.get('/getUser', function(req, res, next) {
+    con.connect(function(err) {
+        if (err) throw err;
+        console.log('Connected!'); // Currently getting an error on sql queries
+        con.query('call twitter_model.get_user(\'' + req.get('username') + '\', \'' + req.get('pass') + '\');'
+            , function (err, result) {
+                if (err)
+                {
+                    console.log('Error grabbing timeline: ' + err);
+                    res.send('Error grabbing timeline, check your credentials and try again');
+                }
+                res.send(result);
+            })
+    });
+});
+
 module.exports = router;
