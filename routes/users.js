@@ -45,4 +45,36 @@ router.get('/getUser', function(req, res, next) {
     });
 });
 
+router.get('/getUserTweets', function(req, res, next) {
+    con.connect(function(err) {
+        if (err) throw err;
+        console.log('Connected!'); // Currently getting an error on sql queries
+        con.query('call twitter_model.get_user_tweets(\'' + req.get('username') + '\');'
+            , function (err, result) {
+                if (err)
+                {
+                    console.log('Error grabbing timeline: ' + err);
+                    res.send('Error grabbing timeline, check your credentials and try again');
+                }
+                res.send(result);
+            })
+    });
+});
+
+router.get('/getTweetFavs', function(req, res, next) {
+    con.connect(function(err) {
+        if (err) throw err;
+        console.log('Connected!'); // Currently getting an error on sql queries
+        con.query('call twitter_model.get_tweet_favs(\'' + req.get('tweet_id') + '\');'
+            , function (err, result) {
+                if (err)
+                {
+                    console.log('Error grabbing timeline: ' + err);
+                    res.send('Error grabbing timeline, check your credentials and try again');
+                }
+                res.send(result);
+            })
+    });
+});
+
 module.exports = router;
