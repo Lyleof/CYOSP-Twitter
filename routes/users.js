@@ -14,6 +14,57 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+//DOESNT WORK CURRENTLY
+router.post('/retweetTweet', function(req, res, next) {
+    pool.getConnection(function(err, con) {
+        if (err) throw err;
+        console.log('Connected!'); // Currently getting an error on sql queries
+        con.query('call twitter_model.retweet_tweet(\'' + req.get('username') + '\', \'' + req.get('tweet_id') + '\');'
+            , function (err, result) {
+            if (err)
+            {
+                console.log('Error grabbing timeline: ' + err);
+                res.send('Error grabbing timeline, check your credentials and try again');
+            }
+            res.send(result);
+        })
+    });
+});
+
+router.post('/addTweet', function(req, res, next) {
+    pool.getConnection(function(err, con) {
+        if (err) throw err;
+        console.log('Connected!'); // Currently getting an error on sql queries
+        con.query('call twitter_model.add_tweet(\'' + req.get('username') + '\', \'' + req.get('user_message') + '\');'
+            , function (err, result) {
+            if (err)
+            {
+                console.log('Error grabbing timeline: ' + err);
+                res.send('Error grabbing timeline, check your credentials and try again');
+            }
+            res.send(result);
+        })
+    });
+});
+
+
+router.post('/favoriteTweet', function(req, res, next) {
+    pool.getConnection(function(err, con) {
+        if (err) throw err;
+        console.log('Connected!'); // Currently getting an error on sql queries
+        con.query('call twitter_model.favorite_tweet(\'' + req.get('username') + '\', \'' + req.get('tweet_id') + '\');'
+            , function (err, result) {
+            if (err)
+            {
+                console.log('Error grabbing timeline: ' + err);
+                res.send('Error grabbing timeline, check your credentials and try again');
+            }
+            res.send(result);
+        })
+    });
+});
+
+
 router.get('/getTimeline', function(req, res, next) {
     pool.getConnection(function(err, con) {
         if (err) throw err;
