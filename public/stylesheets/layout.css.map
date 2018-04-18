@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,CACA;EACE,KAAK,EAAE,OAAO;EAEd,OACA;IACE,eAAe,EAAE,SAAS",
+"sources": ["layout.scss"],
+"names": [],
+"file": "layout.css"
+}
