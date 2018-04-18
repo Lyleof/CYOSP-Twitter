@@ -13,7 +13,7 @@
       now = new Date().getTime();
       if (loginData.date && now - loginData.date < twoHours) {
         username = loginData.username;
-        buildPage();
+        getFeed();
       } else {
         window.location = '/login';
       }
@@ -22,9 +22,35 @@
     }
   });
 
-  buildPage = function() {};
+  this.getFeed = function() {
+    $.ajax({
+      'async': true,
+      'crossDomain': true,
+      'headers': {
+        'username': username
+      },
+      type: 'GET',
+      url: '/users/getTimeline',
+      success: (response) => {
+        return buildPage(response);
+      }
+    });
+  };
 
-  // TODO: build home page
+  buildPage = function(feedData) {
+    var feed, tweets;
+    tweets = feedData[0];
+    feed = document.getElementById('feed-container');
+    if (tweets.length) {
+      return tweets.forEach((tweet) => {
+        var tweetHTML;
+        tweetHTML = '' + '<div class="tweet">' + ' <p class="tweet-message">' + tweet['message'] + '</p>' + ' <p class="tweet-author">' + tweet['currentuser'] + '</p>' + ' <button class="retweet-button" onclick="reTweet(' + tweet['tId'] + ')">retweet</button>' + ' <button class="retweet-button" onclick="favTweet(' + tweet['tId'] + ')">fav</button>' + '</div>';
+        return feed.innerHTML += tweetHTML;
+      });
+    } else {
+      return $(feed).html("<h1>Your feed Is Empty!</h1><p>Follow someone or make a tweet to see stuff here</p>");
+    }
+  };
 
 }).call(this);
 
