@@ -1,9 +1,14 @@
-a
+body
 {
-  color: #236192;
+  background: #b6b6b6;
 
-  &:hover
+  a
   {
-    text-decoration: underline;
+    color: #236192;
+
+    &:hover
+    {
+      text-decoration: underline;
+    }
   }
 }

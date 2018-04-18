@@ -13,9 +13,9 @@ $(document).ready ->
       username = loginData.username
       buildPage()
     else
-      window.load '/login'
+      window.location = '/login'
   else
-    window.load '/login'
+    window.location = '/login'
   return
 
 buildPage = () ->

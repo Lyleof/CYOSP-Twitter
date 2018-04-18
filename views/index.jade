@@ -1,5 +1,10 @@
 extends layout
 
+block styles
+    link(rel='stylesheet', href='/stylesheets/index.css')
+
 block content
-	include index.html
-	
+    include index.html
+
+block scripts
+    script(src='/scripts/index.js')

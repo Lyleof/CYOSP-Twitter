@@ -1,6 +1,8 @@
-a {
-  color: #236192; }
-  a:hover {
-    text-decoration: underline; }
+body {
+  background: #dddddd; }
+  body a {
+    color: #236192; }
+    body a:hover {
+      text-decoration: underline; }
 
 /*# sourceMappingURL=layout.css.map */

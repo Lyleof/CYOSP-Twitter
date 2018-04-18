@@ -1,4 +1,20 @@
 extends layout
 
+block styles
+    link(rel='stylesheet', href='/stylesheets/login.css')
+
 block content
-    // TODO: Build this shit
+    div.login-container
+        div(class='login-pane')
+            h1 Login
+
+            label(for='username')
+            input(type='text', id='username')
+
+            label(for='password')
+            input(type='password', id='password')
+
+            button(class='btn', onclick='loginClient()') login
+
+block scripts
+    script(src='/scripts/login.js')

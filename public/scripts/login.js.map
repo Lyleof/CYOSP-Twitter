@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "login.js",
+  "sourceRoot": "",
+  "sources": [
+    "login.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA,MAAA,WAAA,EAAA;;EAAA,QAAA,GAAW;;EAEX,CAAA,CAAE,QAAF,CAAW,CAAC,KAAZ,CAAkB,QAAA,CAAA,CAAA;AAChB,QAAA,SAAA,EAAA,GAAA,EAAA;IAAA,IAAG,YAAY,CAAC,OAAb,CAAqB,gBAArB,CAAA,KAA4C,IAA/C;MACE,SAAA,GAAY,CAAC,CAAC,SAAF,CAAY,YAAY,CAAC,OAAb,CAAqB,gBAArB,CAAZ,EAAZ;;MAGA,QAAA,GAAW,IAAA,GAAO,EAAP,GAAY,EAAZ,GAAiB;MAE5B,GAAA,GAAM,IAAI,IAAJ,CAAA,CAAU,CAAC,OAAX,CAAA;MAEN,IAAG,SAAS,CAAC,IAAV,IAAkB,GAAA,GAAM,SAAS,CAAC,IAAhB,GAAuB,QAA5C;QACE,QAAA,GAAW,SAAS,CAAC;QACrB,MAAM,CAAC,QAAP,GAAkB,IAFpB;OARF;;EADgB,CAAlB;;EAcA,IAAC,CAAA,WAAD,GAAe,QAAA,CAAA,CAAA;IACb,IAAG,QAAQ,CAAC,cAAT,CAAwB,UAAxB,CAAmC,CAAC,KAApC,KAA+C,EAA/C,IAAsD,QAAQ,CAAC,cAAT,CAAwB,UAAxB,CAAmC,CAAC,KAApC,KAA+C,EAAxG;MACE,CAAC,CAAC,IAAF,CAAO;QACL,OAAA,EAAU,IADL;QAEL,aAAA,EAAgB,IAFX;QAGL,SAAA,EACE;UAAA,UAAA,EAAa,QAAQ,CAAC,cAAT,CAAwB,UAAxB,CAAmC,CAAC,KAAjD;UACA,MAAA,EAAS,QAAQ,CAAC,cAAT,CAAwB,UAAxB,CAAmC,CAAC;QAD7C,CAJG;QAOL,IAAA,EAAM,KAPD;QAQL,GAAA,EAAK,gBARA;QASL,OAAA,EAAS,CAAC,QAAD,CAAA,GAAA;iBAAc,WAAA,CAAY,QAAZ;QAAd;MATJ,CAAP,EADF;;EADa;;EAef,WAAA,GAAc,QAAA,CAAC,QAAD,CAAA;AACZ,QAAA;IAAA,IAAG,QAAS,CAAA,CAAA,CAAE,CAAC,MAAf;MACE,SAAA,GACE;QAAA,QAAA,EAAU,QAAS,CAAA,CAAA,CAAG,CAAA,CAAA,CAAG,CAAA,UAAA,CAAzB;QACA,IAAA,EAAM,IAAI,IAAJ,CAAA,CAAU,CAAC,OAAX,CAAA;MADN;MAGF,YAAY,CAAC,OAAb,CAAqB,gBAArB,EAAuC,IAAI,CAAC,SAAL,CAAe,SAAf,CAAvC;MAEA,MAAM,CAAC,QAAP,GAAkB,IAPpB;KAAA,MAAA;MAUE,KAAA,CAAM,6BAAN,EAVF;;EADY;AA/Bd",
+  "sourcesContent": [
+    "username = ''\n\n$(document).ready ->\n  if localStorage.getItem('stwitter-login') isnt null\n    loginData = $.parseJSON localStorage.getItem 'stwitter-login'\n\n    # 2 hours in milliseconds\n    twoHours = 1000 * 60 * 60 * 2\n\n    now = new Date().getTime()\n\n    if loginData.date && now - loginData.date < twoHours\n      username = loginData.username\n      window.location = '/'\n  return\n\n@loginClient = () ->\n  if document.getElementById('username').value isnt '' and document.getElementById('password').value isnt ''\n    $.ajax({\n      'async' : true,\n      'crossDomain' : true,\n      'headers' :\n        'username' : document.getElementById('username').value,\n        'pass' : document.getElementById('password').value\n      ,\n      type: 'GET',\n      url: '/users/getUser',\n      success: (response) => manageLogin(response)\n    })\n  return\n\nmanageLogin = (response) ->\n  if response[0].length\n    loginData =\n      username: response[0][0]['username']\n      date: new Date().getTime()\n\n    localStorage.setItem('stwitter-login', JSON.stringify(loginData))\n\n    window.location = '/'\n\n  else\n    alert 'Incorrect login information'\n  return"
+  ]
+}
