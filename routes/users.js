@@ -14,23 +14,6 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-//DOESNT WORK CURRENTLY
-router.post('/retweetTweet', function(req, res, next) {
-    pool.getConnection(function(err, con) {
-        if (err) throw err;
-        console.log('Connected!'); // Currently getting an error on sql queries
-        con.query('call twitter_model.retweet_tweet(\'' + req.get('username') + '\', \'' + req.get('tweet_id') + '\');'
-            , function (err, result) {
-            if (err)
-            {
-                console.log('Error grabbing timeline: ' + err);
-                res.send('Error grabbing timeline, check your credentials and try again');
-            }
-            res.send(result);
-        })
-    });
-});
-
 router.post('/addTweet', function(req, res, next) {
     pool.getConnection(function(err, con) {
         if (err) throw err;
@@ -62,7 +45,6 @@ router.post('/favoriteTweet', function(req, res, next) {
         })
     });
 });
-
 
 router.get('/getTimeline', function(req, res, next) {
     pool.getConnection(function(err, con) {
@@ -192,6 +174,10 @@ router.post('/deleteTweet', function(req, res, next) {
     });
 });
 
+//TODO: ERROR Grabbing Timeline
+/*You have an error in your SQL syntax; check the manual that corresponds to your MySQL server
+version for the right syntax to use near ''codeWonderland)' at line 1
+*/
 router.post('/unfollowUser', function(req, res, next) {
     pool.getConnection(function(err, con) {
         if (err) throw err;
@@ -208,6 +194,9 @@ router.post('/unfollowUser', function(req, res, next) {
     });
 });
 
+//TODO: Error grabbing timeline
+/*You have an error in your SQL syntax; check the manual that corresponds to your MySQL server
+version for the right syntax to use near ''undefined)' at line 1*/
 router.post('/retweetTweet', function(req, res, next) {
     pool.getConnection(function(err, con) {
         if (err) throw err;
