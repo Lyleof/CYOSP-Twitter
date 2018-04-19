@@ -17,3 +17,8 @@ This project uses a number of dependencies, including but not limited to:
 - run the following command from within the project directory
 - `npm start`
 The server will run on localhost:3000
+
+## Project Creators
+- codeWonderland
+- lyleof
+- walthill
