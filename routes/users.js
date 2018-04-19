@@ -174,15 +174,11 @@ router.post('/deleteTweet', function(req, res, next) {
     });
 });
 
-//TODO: ERROR Grabbing Timeline
-/*You have an error in your SQL syntax; check the manual that corresponds to your MySQL server
-version for the right syntax to use near ''codeWonderland)' at line 1
-*/
-router.post('/unfollowUser', function(req, res, next) {
+router.post('/followUser', function(req, res, next) {
     pool.getConnection(function(err, con) {
         if (err) throw err;
         console.log('Connected!'); // Currently getting an error on sql queries
-        con.query('call twitter_model.unfollow_users(\'' + req.get('follower') + '\', \'' + req.get('followee') + ');'
+        con.query('call twitter_model.follow_user(\'' + req.get('follower') + '\', \'' + req.get('followee') + '\');'
             , function (err, result) {
                 if (err)
                 {
@@ -194,14 +190,27 @@ router.post('/unfollowUser', function(req, res, next) {
     });
 });
 
-//TODO: Error grabbing timeline
-/*You have an error in your SQL syntax; check the manual that corresponds to your MySQL server
-version for the right syntax to use near ''undefined)' at line 1*/
+router.post('/unfollowUser', function(req, res, next) {
+    pool.getConnection(function(err, con) {
+        if (err) throw err;
+        console.log('Connected!'); // Currently getting an error on sql queries
+        con.query('call twitter_model.unfollow_user(\'' + req.get('follower') + '\', \'' + req.get('followee') + '\');'
+            , function (err, result) {
+                if (err)
+                {
+                    console.log('Error grabbing timeline: ' + err);
+                    res.send('Error grabbing timeline, check your credentials and try again');
+                }
+                res.send(result);
+            })
+    });
+});
+
 router.post('/retweetTweet', function(req, res, next) {
     pool.getConnection(function(err, con) {
         if (err) throw err;
         console.log('Connected!'); // Currently getting an error on sql queries
-        con.query('call twitter_model.retweet_tweet(\'' + req.get('username') + '\', \'' + req.get('tweet_id') + '\', \'' + req.get('message') + '\', \'' + req.get('original_user') + ');'
+        con.query('call twitter_model.retweet_tweet(\'' + req.get('username') + '\', \'' + req.get('tweet_id') + '\', \'' + req.get('message') + '\', \'' + req.get('original_user') + '\');'
             , function (err, result) {
                 if (err)
                 {
