@@ -19,6 +19,6 @@ This project uses a number of dependencies, including but not limited to:
 The server will run on localhost:3000
 
 ## Project Creators
-- codeWonderland
-- lyleof
-- walthill
+- [codeWonderland](https://github.com/codeWonderland)
+- [lyleof](https://github.com/lyleof)
+- [walthill](https://github.com/walthill)
